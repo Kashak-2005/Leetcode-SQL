@@ -1,0 +1,13 @@
+WITH CustomerProductCount AS (
+    SELECT customer_id, COUNT(DISTINCT product_key) AS product_count
+    FROM Customer
+    GROUP BY customer_id
+),
+TotalProducts AS (
+    SELECT COUNT(*) AS total_product_count
+    FROM Product
+)
+SELECT c.customer_id
+FROM CustomerProductCount c
+JOIN TotalProducts t
+ON c.product_count = t.total_product_count;
